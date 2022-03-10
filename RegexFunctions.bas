@@ -119,16 +119,14 @@ RegexFindAll = Join(strings, sep)
 End Function
 
 
-Function RegexFind(pat As String, _
+Function RegexFindObject(pat As String, _
     str As String, _
     Optional match_num As Integer = 0, _
-    Optional submatch_sep As String = "", _
     Optional ignore_case As Boolean = False, _
-    Optional multiline As Boolean = False) As String
+    Optional multiline As Boolean = False) As Object
 ' Get the match_num^th match in string str to a regex with various params.
 Dim is_global As Boolean
 Dim matches
-Dim num_submatches As Integer
 is_global = IIf(match_num = 0, False, True)
 Set matches = RegexMatches(pat, str, is_global, ignore_case, multiline)
 If matches.Count - 1 < match_num Then
@@ -136,14 +134,27 @@ If matches.Count - 1 < match_num Then
     + " couldn't be found in matches of length " + matches.Count)
     Exit Function
 End If
-num_submatches = matches.Item(match_num).SubMatches.Count - 1
+Set RegexFindObject = matches.Item(match_num)
+End Function
+
+
+Function RegexFind(pat As String, _
+    str As String, _
+    Optional match_num As Integer = 0, _
+    Optional submatch_sep As String = "", _
+    Optional ignore_case As Boolean = False, _
+    Optional multiline As Boolean = False) As String
+' Get the match_num^th match AS A STRING in string str to a regex with various params.
+' If there are any capture groups in the match, they will be separated by submatch_sep.
+Dim match: Set match = RegexFindObject(pat, str, match_num, ignore_case, multiline)
+num_submatches = match.SubMatches.Count - 1
 If num_submatches < 0 Then
-    RegexFind = matches.Item(match_num).Value
+    RegexFind = match.Value
 Else
     ReDim strings(num_submatches) As String
     Dim ii As Integer
     For ii = 0 To num_submatches
-        strings(ii) = matches.Item(match_num).SubMatches.Item(ii)
+        strings(ii) = match.SubMatches.Item(ii)
     Next ii
     RegexFind = Join(strings, submatch_sep)
 End If
@@ -160,9 +171,12 @@ Function RegexSplit(pat As String, _
 ' if there are capturing groups in the regex, each capturing group gets its
 ' own element in the string list at the location where it's found in the string
 ' in addition to all the substrings not matched by the regex
+' If num_splits is -1, split out every instance of the regex that is found
+' If num_splits is greater than 0, split at most num_splits times before stopping.
+' num_splits cannot be 0 or a negative number other than 1.
 Dim is_global As Boolean
 Dim matches
-is_global = IIf(num_splits = 0, False, True)
+is_global = IIf(num_splits = 1, False, True)
 Set matches = RegexMatches(pat, str, is_global, ignore_case, multiline)
 ReDim out(1) As Variant
 If matches.Count = 0 Then
@@ -214,3 +228,9 @@ strings = RegexSplit(pat, str, ignore_case, multiline, num_splits)
 RegexSplitToString = Join(strings, sep)
 End Function
 
+
+Function RegexEscape(str As String) As String
+' Escape all the special characters in string str
+Dim special_chars As String: special_chars = "([\[\]\(\)\{\}\?\+\*\.\^\$\|\\])"
+RegexEscape = RegexReplace(special_chars, "\$1", str, True, False, True)
+End Function

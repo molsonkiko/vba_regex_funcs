@@ -8,7 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ### To Be Added
 
-- ???
+- Fully functional Regex Builder Form.
+
+# [2.0.0] - 2022-03-10
+
+### Added
+
+- RegexFindObject (like indexing in `list(re.finditer(x))`, which returns the n^th match as a match object, unlike RegexFind, which returns a string.
+- RegexEscape (`re.escape` workalike), which takes a string and returns the string with all special characters escaped.
+- The basic skeleton of "Regex Builder Form.xlsm", which will allow people to build regular expressions by a GUI similar to [RegexBuddy](https://www.rexegg.com/regexbuddy-tutorial.html). This is not yet functional.
 
 ## [1.0.0] - 2022-03-09
 
