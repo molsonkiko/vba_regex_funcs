@@ -6,7 +6,7 @@ VBA regex functions
 Features
 --------
 
-* Regular expression functions adapted from python's re library
+* Regular expression functions adapted from python's [re](https://docs.python.org/3/library/re.html) library.
 * Several functions that can be used from a worksheet once the add-in is enabled.
 
 How to use
@@ -18,6 +18,7 @@ How to use
 	3. Select the path to RegexFunctions.xlam in your file explorer
 	4. Open up regexfunctions_addin_test.xlsx and use F9 to refresh all the functions. You can visually inspect the results and source code to make sure it looks like successful_test_outcomes.png.
 * See the CHANGELOG for what functions you can use.
+* Also see [regular-expressions.info](https://www.regular-expressions.info/vbscript.html) for more information on the object model that VBA regular RegExp objects use.
 
 Contributing
 ------------
