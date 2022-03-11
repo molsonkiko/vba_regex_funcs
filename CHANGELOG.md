@@ -8,9 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ### To Be Added
 
-- Fully functional Regex Builder Form.
+- Support for lazy quanitifiers in the Regex Builder Form.
 
-# [2.0.0] - 2022-03-10
+## [2.1.0] - 2022-03-10
+
+### Added
+
+- The "Regex Builder Form" is complete! With this, you can build complex regular expressions from simpler ones using a GUI, and the worksheet runs all of the functions in RegexFunctions on an input string of your choice (default "a big bad dog") and the last regex you created.
+- Currently the Regex Builder Form does not allow you to create regexes with [lookahead](https://www.regular-expressions.info/lookaround.html#lookahead) or [lazy quantifiers](https://www.regular-expressions.info/repeat.html#lazy).
+
+## [2.0.0] - 2022-03-10
 
 ### Added
 

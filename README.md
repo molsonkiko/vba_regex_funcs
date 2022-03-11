@@ -8,6 +8,7 @@ Features
 
 * Regular expression functions adapted from python's [re](https://docs.python.org/3/library/re.html) library.
 * Several functions that can be used from a worksheet once the add-in is enabled.
+* The Regex Builder Form, a GUI for building regular expressions.
 
 How to use
 ----------
